@@ -86,6 +86,7 @@ from additions.mediatheken.rtl2now import *
 from additions.mediatheken.superrtlnow import *
 from additions.mediatheken.zdf import *
 from additions.mediatheken.orf import *
+from additions.mediatheken.dmax import *
 
 # music
 from additions.canna import *
@@ -225,6 +226,7 @@ config.mediaportal.showRTLnitro = ConfigYesNo(default = True)
 config.mediaportal.showSUPERRTLnow = ConfigYesNo(default = True)
 config.mediaportal.showZDF = ConfigYesNo(default = True)
 config.mediaportal.showORF = ConfigYesNo(default = True)
+config.mediaportal.showDMAX = ConfigYesNo(default = True)
 
 # porn
 config.mediaportal.show4tube = ConfigYesNo(default = False)
@@ -370,6 +372,7 @@ class hauptScreenSetup(Screen, ConfigListScreen):
 		self.configlist.append(getConfigListEntry("Zeige SUPERRTLNOW:", config.mediaportal.showSUPERRTLnow))
 		self.configlist.append(getConfigListEntry("Zeige ZDF Mediathek:", config.mediaportal.showZDF))
 		self.configlist.append(getConfigListEntry("Zeige ORF TVthek:", config.mediaportal.showORF))
+		self.configlist.append(getConfigListEntry("Zeige DMAX Mediathek:", config.mediaportal.showDMAX))
 		self.configlist.append(getConfigListEntry("Zeige ScienceTV:", config.mediaportal.showScienceTV))
 		self.configlist.append(getConfigListEntry("Zeige Doku.me:", config.mediaportal.showDoku))
 		self.configlist.append(getConfigListEntry("Zeige Myvideo:", config.mediaportal.showMyvideo))
@@ -572,6 +575,8 @@ class haupt_Screen(Screen, ConfigListScreen):
 			self.mediatheken.append(self.hauptListEntry("ZDF Mediathek", "zdf"))
 		if config.mediaportal.showORF.value:
 			self.mediatheken.append(self.hauptListEntry("ORF TVthek", "orf"))
+		if config.mediaportal.showDMAX.value:
+			self.mediatheken.append(self.hauptListEntry("DMAX Mediathek", "dmax"))
 		if config.mediaportal.show4Players.value:
 			self.mediatheken.append(self.hauptListEntry("4Players", "4players"))
 		if config.mediaportal.showGIGA.value:
@@ -1184,6 +1189,8 @@ class haupt_Screen(Screen, ConfigListScreen):
 			self.session.open(ZDFGenreScreen)
 		elif auswahl == "ORF TVthek":
 			self.session.open(ORFGenreScreen)
+		elif auswahl == "DMAX Mediathek":
+			self.session.open(DMAXShowsScreen)
 		elif auswahl == "Cinestream":
 			self.session.open(cinestreamFilmListeScreen)
 		elif auswahl == "Moovizon":
@@ -1749,6 +1756,8 @@ class haupt_Screen_Wall(Screen, ConfigListScreen):
 			self.plugin_liste.append(("ZDF Mediathek", "zdf", "Mediathek"))
 		if config.mediaportal.showORF.value:
 			self.plugin_liste.append(("ORF TVthek", "orf", "Mediathek"))
+		if config.mediaportal.showDMAX.value:
+			self.plugin_liste.append(("DMAX Mediathek", "dmax", "Mediathek"))
 		if config.mediaportal.showWrestlingnetwork.value:
 			self.plugin_liste.append(("Wrestlingnetwork", "wrestlingnetwork", "Mediathek"))
 		if config.mediaportal.showViewster.value:
@@ -2316,6 +2325,9 @@ class haupt_Screen_Wall(Screen, ConfigListScreen):
 		elif auswahl == "ORF TVthek":
 			self.hit_plugin("ORF TVthek")
 			self.session.open(ORFGenreScreen)
+		elif auswahl == "DMAX Mediathek":
+			self.hit_plugin("DMAX Medaithek")
+			self.session.open(DMAXShowsScreen)
 		elif auswahl == "KIKA+":
 			self.hit_plugin("KIKA+")
 			self.session.open(kikaGenreScreen)
